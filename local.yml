@@ -1,8 +1,7 @@
 version: '3'
 
 volumes:
-  assessment_local_postgres_data: {}
-  assessment_local_postgres_data_backups: {}
+  assessment_local_mysql_data: {}
 
 services:
   django: &django
@@ -13,28 +12,27 @@ services:
     container_name: assessment_local_django
     platform: linux/x86_64
     depends_on:
-      - postgres
+      - mysql
       - redis
     volumes:
       - .:/app:z
     env_file:
       - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
+      - ./.envs/.local/.mysql
     ports:
       - "8000:8000"
     command: /start
 
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: assessment_production_postgres
-    container_name: assessment_local_postgres
+  mysql:
+    image: mysql:8.0
+    container_name: assessment_local_mysql
+    restart: always
     volumes:
-      - assessment_local_postgres_data:/var/lib/postgresql/data:Z
-      - assessment_local_postgres_data_backups:/backups:z
+      - assessment_local_mysql_data:/var/lib/mysql
     env_file:
-      - ./.envs/.local/.postgres
+      - ./.envs/.local/.mysql
+    ports:
+      - '3306:3306'
 
   docs:
     image: assessment_local_docs

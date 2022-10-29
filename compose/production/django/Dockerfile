@@ -14,8 +14,8 @@ ARG BUILD_ENVIRONMENT=production
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages
   build-essential \
-  # psycopg2 dependencies
-  libpq-dev
+  # mysqlclient dependencies
+  python3-dev default-libmysqlclient-dev
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
@@ -43,8 +43,10 @@ RUN addgroup --system django \
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg2 dependencies
-  libpq-dev \
+  # dependencies for building Python packages
+  build-essential \
+  # mysqlclient dependencies
+  python3-dev default-libmysqlclient-dev \
   # Translations dependencies
   gettext \
   # cleaning up unused files

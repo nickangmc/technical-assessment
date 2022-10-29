@@ -1,0 +1,8 @@
+# MySQL
+# ------------------------------------------------------------------------------
+MYSQL_HOST=mysql
+MYSQL_PORT=3306
+MYSQL_DATABASE=assessment
+MYSQL_USER=dev
+MYSQL_PASSWORD=local
+MYSQL_ROOT_PASSWORD=local
