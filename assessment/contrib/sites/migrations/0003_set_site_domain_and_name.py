@@ -23,13 +23,13 @@ def _update_or_create_site_with_sequence(site_model, connection, domain, name):
         # site is created.
         # To avoid this, we need to manually update DB sequence and make sure it's
         # greater than the maximum value.
-        max_id = site_model.objects.order_by('-id').first().id
+        max_id = site_model.objects.order_by("-id").first().id
         with connection.cursor() as cursor:
-            cursor.execute("SELECT last_value from django_site_id_seq")
-            (current_id,) = cursor.fetchone()
+            cursor.execute("SELECT * FROM django_site ORDER BY id DESC ")
+            (current_id, *other) = cursor.fetchone()
             if current_id <= max_id:
                 cursor.execute(
-                    "alter sequence django_site_id_seq restart with %s",
+                    "ALTER TABLE django_site AUTO_INCREMENT = %s",
                     [max_id + 1],
                 )
 
