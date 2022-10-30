@@ -1,14 +1,8 @@
 import pytest
 
-from assessment.users.models import User
-from assessment.users.tests.factories import UserFactory
-
-
-@pytest.fixture(autouse=True)
-def media_storage(settings, tmpdir):
-    settings.MEDIA_ROOT = tmpdir.strpath
-
 
 @pytest.fixture
-def user(db) -> User:
-    return UserFactory()
+def api_client():
+    from rest_framework.test import APIClient
+
+    return APIClient()
