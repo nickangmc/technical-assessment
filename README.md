@@ -92,4 +92,4 @@ $ open htmlcov/index.html
 
 ### Credits
 
-This project is initialized using [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django). Therefore, it comes with many useful features (e.g. user authentication), even though some are not needed in this project. As a result, it closely follows best practices/standards outlined by Cookiecutter in project structure (e.g. `.envs/` & `config/`) and docker configuration.
+This project is initialized using [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django). Therefore, it comes with many useful features (e.g. `user authentication`, `Celery` - background job worker, etc.), even though some are not needed in this project. As a result, it closely follows best practices/standards in backend development outlined by Cookiecutter in project structure (e.g. `.envs/` & `config/`) and docker configuration.
