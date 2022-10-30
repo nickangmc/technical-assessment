@@ -13,7 +13,7 @@ This application contains Django/Python with MySQL, Redis & Celery all running i
 
 - Use of Docker & Docker compose for the app stack
 
-  For ease of setup, development, & deployement if needed. Live-reload/Hot module reload (HMR) is supported during developement for this docker setup as well.
+  For ease of setup, development, & deployment if needed. Live-reload/Hot module reload (HMR) is supported during development for this docker stack setup as well. The template production docker compose configuration can be found in `production.yml` file, it is however not ready yet to be used for any production purposes based on the requirements in this assessment.
 
 - Use of Django REST Framework (DRF)
 
@@ -23,14 +23,14 @@ This application contains Django/Python with MySQL, Redis & Celery all running i
 
 ## Files & Folders structure
 
-- `envs/`: Contains the environment variables for all environments (e.g. local, staging & etc.).
-- `assessment/`: Contains all backend application logic (e.g. django apps, models, test & etc.).
-- `compose/`: Contains docker & docker compose related files (e.g. Dockerfile)
+- `envs/`: Contains the environment variables for all environments (e.g. _local, staging & etc._).
+- `assessment/`: Contains all backend application logic (e.g. _Django apps, models, test & etc._).
+- `compose/`: Contains docker & docker compose related files (e.g. _Dockerfile_)
 - `config/`: Contains `settings.py` for different environments, routes/urls config, & the web server config - `wsgi.py`.
 - `requirements/`: Contains the lists of package dependencies for different environments.
 - `local.yml`, `production.yml`: Docker compose config files for different environements.
 
-The main API logic/functions created for this assessment requirements are contained in the folder here:
+The main API logic/functions created for this assessment are contained in the folder here:
 
 - `assessment/items/`
 
@@ -52,7 +52,7 @@ The main API logic/functions created for this assessment requirements are contai
 
 ## Local development & setup instructions
 
-Make sure you already have Docker, Docker Compose, Python, & python virtualenv (recommended but optional) installed in your terminal.
+Make sure you already have Docker & Docker Compose installed in your terminal.
 
 ### Initial setup
 
@@ -68,7 +68,7 @@ $ docker compose -f local.yml build
 $ docker compose -f local.yml up
 ```
 
-You might need to wait awhile for Django to complete the initial migrations (on first launch only). Otherwise, use the following command if you want to run the initial migration manually:
+You might need to wait awhile for Django to complete the initial migrations (on first launch only). Otherwise, use the following command if you want to run the initial migrations manually:
 
 ```
 $ docker compose -f local.yml run --rm django python manage.py migrate
@@ -92,4 +92,4 @@ $ open htmlcov/index.html
 
 ### Credits
 
-This project is initialized using [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django). Therefore, it comes with many useful features (e.g. user authentication), even though some are not needed in this project. Furthermore, it closely follows best practices/standards outlined by Cookiecutter in project structure (e.g. `.envs/` & `config/`) and docker configuration.
+This project is initialized using [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django). Therefore, it comes with many useful features (e.g. user authentication), even though some are not needed in this project. As a result, it closely follows best practices/standards outlined by Cookiecutter in project structure (e.g. `.envs/` & `config/`) and docker configuration.
