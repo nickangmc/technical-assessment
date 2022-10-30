@@ -42,6 +42,7 @@ class ItemViewSet(
         serializer = ItemListResponseSerializer(queryset)
         return Response(serializer.data)
 
+    # Creates a new endpoint in viewsets.ModelViewSet: "api/items/category"
     @action(
         methods=["get"],
         detail=False,
