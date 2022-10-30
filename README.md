@@ -1,65 +1,95 @@
-# assessment
+# Technical Assessment Attempt
 
- 
+This application contains Django/Python with MySQL, Redis & Celery all running in Docker.
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+## Overview of the solution
 
-## Settings
+- Designed to meet the assessment requirements
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+  1. Django, Python is used as the backend code.
+  1. MySQL is used as the database.
+  1. Included unit tests for the API endpoints.
+  1. Created APIs based on the 3 scenarios required.
 
-## Basic Commands
+- Use of Docker & Docker compose for the app stack
 
-### Setting Up Your Users
+  For ease of setup, development, & deployement if needed. Live-reload/Hot module reload (HMR) is supported during developement for this docker setup as well.
 
--   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+- Use of Django REST Framework (DRF)
 
--   To create a **superuser account**, use this command:
+  [Django REST Framework](https://www.django-rest-framework.org/) (DRF) is used on top of Django to create REST APIs. DRF simplifies the API development by providing useful abstractions (e.g. serializers, viewsets, etc.) to reduce code complexities and redundancy.
 
-        $ python manage.py createsuperuser
+  Though there might be some learning curves for newcomers from other frameworks/languages.
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+## Files & Folders structure
 
-### Type checks
+- `envs/`: Contains the environment variables for all environments (e.g. local, staging & etc.).
+- `assessment/`: Contains all backend application logic (e.g. django apps, models, test & etc.).
+- `compose/`: Contains docker & docker compose related files (e.g. Dockerfile)
+- `config/`: Contains `settings.py` for different environments, routes/urls config, & the web server config - `wsgi.py`.
+- `requirements/`: Contains the lists of package dependencies for different environments.
+- `local.yml`, `production.yml`: Docker compose config files for different environements.
 
-Running type checks with mypy:
+The main API logic/functions created for this assessment requirements are contained in the folder here:
 
-    $ mypy assessment
+- `assessment/items/`
 
-### Test coverage
+  - `api/`: Contains the functions that handle API requests.
+
+    - `serializers.py`: Contains serializers to help with input validation, response serialization, & object create/update logic. More information on the functions of `serializers` can be found on [DRF guides](https://www.django-rest-framework.org/api-guide/serializers/).
+    - `views.py`: Acts as the controllers for the API in this `item` app/module.
+
+  - `migrations/`: Contains all the migration files for this `item` app/module.
+  - `tests/`: Contains all the unit tests for this `item` module.
+  - `models.py`: Defines all the models in this module.
+  - `conftest.py`: Defines the common fixtures/functions for unit tests in this module.
+
+## API endpoints
+
+- `POST /api/items/` - Scenario/Task #1
+- `GET /api/items/` - Scenario/Task #2
+- `GET /api/items/category/` - Scenario/Task #3
+
+## Local development & setup instructions
+
+Make sure you already have Docker, Docker Compose, Python, & python virtualenv (recommended but optional) installed in your terminal.
+
+### Initial setup
+
+Build the Docker stack:
+
+```
+$ docker compose -f local.yml build
+```
+
+### Run the app stack
+
+```
+$ docker compose -f local.yml up
+```
+
+You might need to wait awhile for Django to complete the initial migrations (on first launch only). Otherwise, use the following command if you want to run the initial migration manually:
+
+```
+$ docker compose -f local.yml run --rm django python manage.py migrate
+```
+
+### Run tests with pytest
+
+```
+$ docker compose -f local.yml run --rm django pytest
+```
+
+### Check test coverage
 
 To run the tests, check your test coverage, and generate an HTML coverage report:
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-### Celery
-
-This app comes with Celery.
-
-To run a celery worker:
-
-``` bash
-cd assessment
-celery -A config.celery_app worker -l info
+```
+$ docker compose -f local.yml run --rm django coverage run -m pytest
+$ docker compose -f local.yml run --rm django coverage html
+$ open htmlcov/index.html
 ```
 
-Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
+### Credits
 
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+This project is initialized using [Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django). Therefore, it comes with many useful features (e.g. user authentication), even though some are not needed in this project. Furthermore, it closely follows best practices/standards outlined by Cookiecutter in project structure (e.g. `.envs/` & `config/`) and docker configuration.
