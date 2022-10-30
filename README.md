@@ -13,7 +13,7 @@ This application contains Django/Python with MySQL, Redis & Celery all running i
 
 - Use of Docker & Docker compose for the app stack
 
-  For ease of setup, development, & deployment if needed. Live-reload/Hot module reload (HMR) is supported during development for this docker stack setup as well. The template production docker compose configuration can be found in `production.yml` file, it is however not ready yet to be used for any production purposes based on the requirements in this assessment.
+  For ease of setup, development, & deployment if needed. Live-reload/Hot module reload (HMR) is supported during development for this docker stack setup as well. The template for production docker compose configuration can be found in `production.yml` file, it is however not ready yet to be used for any production purposes based on the requirements in this assessment.
 
 - Use of Django REST Framework (DRF)
 
